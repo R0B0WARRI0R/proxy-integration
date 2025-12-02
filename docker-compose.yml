@@ -1,0 +1,30 @@
+services:
+  scraper:
+    build: ./scraper
+    volumes:
+      - proxy_data:/app/out
+    restart: unless-stopped
+
+  mubeng:
+    build: ./mubeng
+    entrypoint: 
+      - /bin/sh
+      - -c
+      - |
+        echo "Waiting for proxies.txt to be populated..."
+        while [ ! -s /data/proxies.txt ]; do 
+          echo "File is empty or missing. Waiting for scraper to finish (this may take a few minutes)..."
+          sleep 10
+        done
+        echo "Proxies found! Starting mubeng..."
+        exec mubeng -a :8080 -f /data/proxies.txt -w -r 1
+    ports:
+      - "8089:8080"
+    volumes:
+      - proxy_data:/data
+    restart: unless-stopped
+    depends_on:
+      - scraper
+
+volumes:
+  proxy_data:

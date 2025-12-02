@@ -1,0 +1,36 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Node/JS
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Go
+bin/
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Rust
+target/
+**/*.rs.bk
+
+# Project specific
+# (Add any specific files here if needed)
